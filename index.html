@@ -6,207 +6,73 @@
 <meta name="theme-color" content="#21573c" />
 <title>Lista para pedidos</title>
 <style>
-:root{
-  --bg:#f4f6f2;--card:#ffffff;--ink:#18201b;--muted:#667268;--line:#dde5dd;
-  --green:#21573c;--green-soft:#eef5f0;--green-2:#25d366;--shadow:0 10px 28px rgba(24,32,27,.08)
-}
+:root{--bg:#f4f6f2;--card:#fff;--ink:#18201b;--muted:#69736c;--line:#dfe6df;--green:#21573c;--wa:#25d366}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-img{max-width:100%;display:block}
-.wrap{max-width:860px;margin:0 auto;padding:18px 14px 110px}
-.hero{background:linear-gradient(145deg,#173f2b,#2b6b49);color:#fff;border-radius:26px;padding:18px;box-shadow:var(--shadow)}
-.hero-top{display:flex;align-items:center;gap:14px}
-.avatar{width:76px;height:76px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.35);flex:0 0 auto;background:rgba(255,255,255,.1)}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.hero-copy h1{font-size:28px;line-height:1.05;margin:0 0 6px}
-.hero-copy p{margin:0;color:rgba(255,255,255,.88);line-height:1.45;font-size:14px}
-.helper{margin-top:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:12px 14px}
-.helper-title{font-size:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:800;opacity:.78;margin-bottom:6px}
-.steps{margin:0;padding-left:18px;color:rgba(255,255,255,.92);font-size:13px;line-height:1.55}
-.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:24px 2px 10px}
-.section-head h2{font-size:22px;margin:0}
-.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.tip{font-size:12px;color:var(--muted);background:#eef2ed;border:1px solid var(--line);padding:8px 10px;border-radius:12px}
-.list{display:grid;gap:10px}
-.item{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;box-shadow:0 2px 8px rgba(24,32,27,.03)}
-.item.active{border-color:#9cc9aa;background:#fbfefb}
-.item-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.name{font-weight:800;font-size:17px;line-height:1.15}
-.avail{margin-top:5px;font-size:13px;color:var(--muted)}
-.badge{font-size:12px;font-weight:800;color:var(--green);background:var(--green-soft);padding:7px 10px;border-radius:999px;white-space:nowrap}
-.controls{display:flex;align-items:center;gap:10px;margin-top:14px}
-.control-btn{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:#f7faf7;font-size:24px;line-height:1;cursor:pointer;color:var(--ink)}
-.control-btn:active{transform:scale(.98)}
-.qtybox{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#f7faf7;border:1px solid var(--line);border-radius:14px;min-height:42px;padding:0 12px}
-.qtybox input{width:100%;border:0;background:transparent;text-align:center;font-size:20px;font-weight:900;color:var(--ink);outline:none}
-.qtybox span{font-size:12px;color:var(--muted);white-space:nowrap}
-.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.quick button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:700;color:var(--ink);cursor:pointer}
-.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.photo{position:relative;overflow:hidden;border-radius:16px;background:#e7ebe7;aspect-ratio:1/1;border:1px solid var(--line);cursor:pointer;padding:0}
-.photo .sprite{width:100%;height:100%;display:block;background-image:url('assets/photos-sprite.jpg');background-size:300% 600%;background-repeat:no-repeat;background-color:#e7ebe7}
-.photo::after{content:"Ver foto";position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,.58);color:#fff;font-size:11px;padding:6px 8px;border-radius:999px}
-.note{margin:14px 2px 0;font-size:12px;color:var(--muted);line-height:1.5}
-.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(244,246,242,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
-.sticky-inner{max-width:860px;margin:auto;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
-.order-summary{font-size:12px;color:var(--muted)}
-.order-summary b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
-.wa{border:0;background:var(--green-2);color:#08311b;font-weight:900;border-radius:16px;padding:14px 16px;cursor:pointer;font-size:14px;white-space:nowrap;box-shadow:0 8px 20px rgba(37,211,102,.24)}
-.wa:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-.lightbox{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px}
-.lightbox.open{display:flex}
-.lightbox-photo{width:min(88vw,520px);aspect-ratio:1/1;border-radius:14px;background-image:url('assets/photos-sprite.jpg');background-size:300% 600%;background-repeat:no-repeat;background-color:#e7ebe7}
-.close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:24px;cursor:pointer}
-@media (min-width:700px){
-  .wrap{padding-top:24px}
-  .hero{padding:22px}
-  .hero-copy h1{font-size:34px}
-  .gallery{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
+a{text-decoration:none}
+.wrap{max-width:820px;margin:0 auto;padding:14px 12px 92px}
+.hero{background:linear-gradient(145deg,#173f2b,#2b6b49);color:#fff;border-radius:22px;padding:16px;box-shadow:0 8px 24px rgba(24,32,27,.08)}
+.hero-row{display:flex;align-items:center;gap:12px}
+.avatar{width:66px;height:66px;flex:0 0 66px;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.35)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.hero h1{margin:0 0 5px;font-size:25px;line-height:1.05}.hero p{margin:0;font-size:13px;line-height:1.42;color:rgba(255,255,255,.88)}
+.section{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px}
+.section h2{margin:0 0 4px;font-size:19px}.section-note{margin:0 0 12px;color:var(--muted);font-size:12px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.product{min-width:0;background:#f7f9f6;border:1px solid #e7ece7;border-radius:12px;padding:9px 10px}
+.product-name{font-size:12px;line-height:1.2;font-weight:750;overflow-wrap:anywhere}.product-qty{margin-top:4px;font-size:13px;line-height:1.1;font-weight:900;color:var(--green)}
+.photos{overflow:hidden;border-radius:14px;background:#eef1ee;border:1px solid var(--line)}
+.photos img{display:block;width:100%;height:auto}
+.caption{margin:8px 2px 0;color:var(--muted);font-size:11px;line-height:1.4}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:rgba(244,246,242,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.sticky-inner{max-width:820px;margin:auto}.wa{display:flex;align-items:center;justify-content:center;width:100%;background:var(--wa);color:#08311b;font-weight:900;font-size:14px;line-height:1.2;text-align:center;border-radius:15px;padding:15px 14px;box-shadow:0 7px 18px rgba(37,211,102,.22)}
+@media(min-width:680px){.wrap{padding-top:22px}.products{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding:20px}.hero h1{font-size:31px}.hero p{font-size:14px}.avatar{width:76px;height:76px;flex-basis:76px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-  <section class="hero">
-    <div class="hero-top">
-      <div class="avatar"><img src="assets/jhon-avatar.jpg" alt="Foto do Jhon"></div>
-      <div class="hero-copy">
-        <h1>Lista para pedidos</h1>
-        <p>Olá! Aqui você vê o que está disponível. Escolha somente o que quiser pedir e informe a quantidade.</p>
-      </div>
-    </div>
-    <div class="helper">
-      <div class="helper-title">Como usar</div>
-      <ol class="steps">
-        <li>Veja o nome do item.</li>
-        <li>Use os botões <strong>+</strong> e <strong>−</strong> para escolher a quantidade.</li>
-        <li>Quando terminar, toque em <strong>Enviar pedido pelo WhatsApp</strong>.</li>
-      </ol>
-    </div>
-  </section>
-
-  <div class="section-head">
+<section class="hero">
+  <div class="hero-row">
+    <div class="avatar"><img src="assets/jhon-avatar.jpg" alt="Foto do Jhon"></div>
     <div>
-      <h2>Itens disponíveis</h2>
-      <p>Começa em zero. Toque em <strong>+</strong> no que você deseja.</p>
-    </div>
-    <div class="tip">Simples e direto</div>
-  </div>
-  <section class="list" id="productList"></section>
-
-  <div class="section-head" style="margin-top:34px">
-    <div>
-      <h2>Fotos de referência</h2>
-      <p>Toque para ampliar.</p>
+      <h1>Lista para pedidos</h1>
+      <p>Confira o que temos disponível. Depois é só responder no WhatsApp informando o produto e a quantidade que você deseja.</p>
     </div>
   </div>
-  <section class="gallery" id="gallery"></section>
-  <p class="note">As fotos abaixo são referências visuais dos produtos disponíveis.</p>
+</section>
+
+<section class="section">
+  <h2>Disponível agora</h2>
+  <p class="section-note">Produto e quantidade de mudas disponíveis.</p>
+  <div class="products">
+    <div class="product"><div class="product-name">Yucca Rostrata azul</div><div class="product-qty">5.500 mudas</div></div>
+    <div class="product"><div class="product-name">Pitosporo verde</div><div class="product-qty">1.920 mudas</div></div>
+    <div class="product"><div class="product-name">Croton Golden Dust</div><div class="product-qty">896 mudas</div></div>
+    <div class="product"><div class="product-name">Croton Maragogi</div><div class="product-qty">128 mudas</div></div>
+    <div class="product"><div class="product-name">Croton Pictum Spot</div><div class="product-qty">1.024 mudas</div></div>
+    <div class="product"><div class="product-name">Croton Belga</div><div class="product-qty">256 mudas</div></div>
+    <div class="product"><div class="product-name">Croton Iceton Yellow</div><div class="product-qty">128 mudas</div></div>
+    <div class="product"><div class="product-name">Alecrim australiano Lilás</div><div class="product-qty">3.200 mudas</div></div>
+    <div class="product"><div class="product-name">Guaimbê</div><div class="product-qty">3.840 mudas</div></div>
+    <div class="product"><div class="product-name">Clivia laranja</div><div class="product-qty">1.000 mudas</div></div>
+    <div class="product"><div class="product-name">Clivia amarela</div><div class="product-qty">1.000 mudas</div></div>
+    <div class="product"><div class="product-name">Samambaia Botão</div><div class="product-qty">640 mudas</div></div>
+    <div class="product"><div class="product-name">Xanadu</div><div class="product-qty">2.000 mudas</div></div>
+    <div class="product"><div class="product-name">Strelitzia augusta</div><div class="product-qty">500 mudas</div></div>
+    <div class="product"><div class="product-name">Barriguda australiana</div><div class="product-qty">250 mudas</div></div>
+    <div class="product"><div class="product-name">Roda de fogo</div><div class="product-qty">250 mudas</div></div>
+    <div class="product"><div class="product-name">Árvore do fogo</div><div class="product-qty">200 mudas</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Fotos de referência</h2>
+  <p class="section-note">Alguns dos produtos disponíveis.</p>
+  <div class="photos"><img src="assets/photos-sprite.jpg" alt="Fotos de referência dos produtos disponíveis"></div>
+  <div class="caption">As imagens servem como referência visual.</div>
+</section>
 </main>
 
-<div class="sticky">
-  <div class="sticky-inner">
-    <div class="order-summary"><b id="bottomCount">Nenhum item escolhido</b><span id="bottomText">Escolha as quantidades e envie para o Jhon</span></div>
-    <button class="wa" id="sendWa" disabled>Enviar pedido pelo WhatsApp</button>
-  </div>
-</div>
-
-<div class="lightbox" id="lightbox"><button class="close" aria-label="Fechar">×</button><div class="lightbox-photo" id="lightboxPhoto" role="img" aria-label="Foto ampliada"></div></div>
-
-<script>
-const WHATSAPP_NUMBER = '554792318080';
-const products = [
-  ['Yucca Rostrata azul',5500],['Pitosporo verde',1920],['Croton Golden Dust',896],['Croton Maragogi',128],['Croton Pictum Spot',1024],['Croton Belga',256],['Croton Iceton Yellow',128],['Alecrim australiano Lilás',3200],['Guaimbê',3840],['Clivia laranja',1000],['Clivia amarela',1000],['Samambaia Botão',640],['Xanadu',2000],['Strelitzia augusta',500],['Barriguda australiana',250],['Roda de fogo',250],['Árvore do fogo',200]
-].map((x,i)=>({id:i+1,name:x[0],available:x[1],qty:0}));
-
-const fmt=n=>new Intl.NumberFormat('pt-BR').format(Number(n)||0);
-const list=document.getElementById('productList');
-
-function quickValues(max){
-  const base=[10,50,100,250,500,1000];
-  return base.filter(v=>v<max).slice(0,4);
-}
-
-function renderList(){
-  list.innerHTML=products.map(p=>{
-    const quick=quickValues(p.available).map(v=>`<button type="button" onclick="setQuick(${p.id},${v})">${fmt(v)}</button>`).join('');
-    return `<article class="item ${p.qty>0?'active':''}">
-      <div class="item-top">
-        <div>
-          <div class="name">${p.name}</div>
-          <div class="avail">Disponível: até ${fmt(p.available)} mudas</div>
-        </div>
-        <div class="badge">${p.qty>0 ? 'Escolhido' : 'Opcional'}</div>
-      </div>
-      <div class="controls">
-        <button class="control-btn" type="button" aria-label="Diminuir ${p.name}" onclick="changeQty(${p.id},-1)">−</button>
-        <label class="qtybox">
-          <input inputmode="numeric" pattern="[0-9]*" value="${p.qty}" onchange="setQty(${p.id},this.value)" aria-label="Quantidade de ${p.name}">
-          <span>mudas</span>
-        </label>
-        <button class="control-btn" type="button" aria-label="Aumentar ${p.name}" onclick="changeQty(${p.id},1)">+</button>
-      </div>
-      <div class="quick">${quick}</div>
-    </article>`;
-  }).join('');
-  updateSummary();
-}
-
-window.changeQty=(id,delta)=>{
-  const p=products.find(x=>x.id===id);
-  p.qty=Math.max(0,Math.min(p.available,p.qty+delta));
-  renderList();
-}
-
-window.setQty=(id,v)=>{
-  const p=products.find(x=>x.id===id);
-  const clean=parseInt(String(v).replace(/\D/g,''))||0;
-  p.qty=Math.max(0,Math.min(p.available,clean));
-  renderList();
-}
-
-window.setQuick=(id,v)=>{
-  const p=products.find(x=>x.id===id);
-  p.qty=Math.max(0,Math.min(p.available,v));
-  renderList();
-}
-
-function updateSummary(){
-  const chosen=products.filter(p=>p.qty>0);
-  const total=chosen.reduce((a,p)=>a+p.qty,0);
-  const summary=document.getElementById('bottomCount');
-  const text=document.getElementById('bottomText');
-  const button=document.getElementById('sendWa');
-  if(!chosen.length){
-    summary.textContent='Nenhum item escolhido';
-    text.textContent='Escolha as quantidades e envie para o Jhon';
-    button.disabled=true;
-    return;
-  }
-  summary.textContent=`${chosen.length} item${chosen.length===1?'':'ns'} escolhido${chosen.length===1?'':'s'}`;
-  text.textContent=`Total informado: ${fmt(total)} mudas`;
-  button.disabled=false;
-}
-
-document.getElementById('sendWa').onclick=()=>{
-  const chosen=products.filter(p=>p.qty>0);
-  if(!chosen.length) return;
-  const lines=chosen.map(p=>`• ${p.name}: ${fmt(p.qty)} mudas`).join('\n');
-  const msg=`Olá, Jhon! Quero pedir os itens abaixo:\n\n${lines}\n\nPodemos confirmar a disponibilidade?`;
-  window.location.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-};
-
-const gallery=document.getElementById('gallery');
-const photoPos=Array.from({length:18},(_,i)=>({x:(i%3)*50,y:Math.floor(i/3)*20}));
-gallery.innerHTML=photoPos.map((p,i)=>`<button class="photo" type="button" onclick="openPhoto(${i})" aria-label="Abrir foto ${i+1}"><span class="sprite" style="background-position:${p.x}% ${p.y}%"></span></button>`).join('');
-
-const lb=document.getElementById('lightbox');
-const lbPhoto=document.getElementById('lightboxPhoto');
-window.openPhoto=i=>{const p=photoPos[i];lbPhoto.style.backgroundPosition=`${p.x}% ${p.y}%`;lb.classList.add('open')};
-lb.querySelector('.close').onclick=()=>lb.classList.remove('open');
-lb.onclick=e=>{if(e.target===lb) lb.classList.remove('open')};
-
-renderList();
-</script>
+<div class="sticky"><div class="sticky-inner"><a class="wa" href="https://wa.me/554792318080?text=Ol%C3%A1%2C%20Jhon!%20Vi%20a%20lista%20e%20gostaria%20de%20pedir%3A%0A%0A" target="_blank" rel="noopener">Responda no WhatsApp o que vc deseja</a></div></div>
 </body>
 </html>
