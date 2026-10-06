@@ -1,0 +1,1 @@
+Forçar novo deploy do GitHub Pages após atualização da página simplificada.
